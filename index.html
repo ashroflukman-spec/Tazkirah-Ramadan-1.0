@@ -635,6 +635,50 @@ function copyContent(){
 }
 
 window.onload=()=>renderButtons();
+// === ELEMENTS ===
+const readerModal = document.getElementById("readerModal");
+const modalContent = document.getElementById("modalContent");
+const modalTitleDay = document.getElementById("modalTitleDay");
+const toast = document.getElementById("toast");
+
+// === OPEN READER ===
+function openReader(day){
+  const data = dbTazkirah.find(i => i.day === day);
+
+  modalTitleDay.innerText =
+    `HARI ${data.day < 10 ? '0' + data.day : data.day}`;
+
+  modalContent.innerHTML = `
+    <div class="mb-6 pb-6 border-b border-gray-200">
+      <h2 class="text-3xl font-black text-gray-900 leading-tight">
+        ${data.title}
+      </h2>
+    </div>
+
+    <div class="content-text">
+      ${data.body}
+    </div>
+  `;
+
+  readerModal.classList.remove("hidden");
+  document.body.style.overflow = "hidden";
+}
+
+// === CLOSE READER (⬅ BACK) ===
+function closeReader(){
+  readerModal.classList.add("hidden");
+  document.body.style.overflow = "auto";
+}
+
+// === COPY CONTENT ===
+function copyContent(){
+  navigator.clipboard.writeText(modalContent.innerText);
+  toast.style.opacity = "1";
+  setTimeout(() => toast.style.opacity = "0", 2000);
+}
+
+// === INIT ===
+window.onload = () => renderButtons();
 </script>
 
 </body>
