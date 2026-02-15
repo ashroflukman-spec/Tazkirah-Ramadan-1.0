@@ -34,6 +34,60 @@ body{
 .day-btn:active{transform:scale(.95)}
 .day-label{font-size:.65rem;opacity:.8}
 .day-number{font-size:1.5rem;font-weight:800}
+/* === Glass Logo Button === */
+.logo-btn {
+  position: relative;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+
+  /* putih transparent 60% */
+  background: rgba(255, 255, 255, 0.6);
+
+  /* glass effect */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  /* soft bevel + depth */
+  box-shadow:
+    6px 6px 18px rgba(0, 0, 0, 0.35),
+    -3px -3px 10px rgba(255, 255, 255, 0.4),
+    inset 2px 2px 6px rgba(255, 255, 255, 0.6),
+    inset -2px -2px 6px rgba(0, 0, 0, 0.15);
+
+  border: 1px solid rgba(255, 255, 255, 0.5);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: transform 0.2s ease;
+}
+
+.logo-btn:active {
+  transform: scale(0.94);
+}
+
+.logo-img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
+}
+
+/* glass shine */
+.logo-btn::before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  left: 18px;
+  width: 30px;
+  height: 16px;
+  background: rgba(255,255,255,0.55);
+  border-radius: 50%;
+  filter: blur(4px);
+  transform: rotate(-25deg);
+}
 </style>
 </head>
 
