@@ -20,7 +20,15 @@ body{
 .arabic{
   font-family:'Amiri',serif;
   direction:rtl;
-  line-height:2.6;
+  line-height:2.8;          /* jarak baris lebih lega */
+  letter-spacing:0.02em;    /* elak huruf rapat */
+  word-spacing:0.15em;      /* elak kalimah melekat */
+}
+
+/* bila font Arab besar (ayat Quran) */
+.arabic.text-2xl,
+.arabic.text-xl{
+  line-height:3.1;
 }
 .day-btn{
   background:rgba(255,255,255,.12);
@@ -164,7 +172,7 @@ const dbTazkirah = [
 <p>Tetapi kita… Allah masih memberi peluang. Percayalah bahawa… Ramadhan bukan sekadar kedatangan bulan — ia adalah tanda bahawa Allah masih memberi kita ruang untuk kembali kepada-Nya.</p>
 <p>Allah Ta‘ala berfirman:</p>
 <div class="bg-pink-50 border-l-4 border-[#831843] p-4 my-4 rounded-r-lg">
-<p class="arabic text-2xl text-center font-bold text-[#831843] mb-2">يَا أَيُّهَا الَّذِينَ آمَنُوا كُتِبَ عَلَيْكُمُ الصِّيَامُ كَمَا كُتِبَ عَلَى الَّذِينَ مِنْ قَبْلِكُمْ لَعَلَّكُمْ تَتَّقُونَ</p>
+<p class="arabic quran text-2xl text-center font-bold text-[#831843] mb-4">يَا أَيُّهَا الَّذِينَ آمَنُوا كُتِبَ عَلَيْكُمُ الصِّيَامُ كَمَا كُتِبَ عَلَى الَّذِينَ مِنْ قَبْلِكُمْ لَعَلَّكُمْ تَتَّقُونَ</p>
 <p class="text-sm text-gray-600 italic text-center">“Wahai orang-orang yang beriman! Kamu diwajibkan berpuasa sebagaimana diwajibkan atas orang-orang yang dahulu daripada kamu, supaya kamu bertaqwa.”<br>(Surah al-Baqarah: 183)</p>
 </div>
 <p>Perhatikan tujuan yang Allah sebut — “supaya kamu bertaqwa.” Bukan sekadar supaya kita lapar. Bukan sekadar supaya kita dahaga. Tetapi supaya lahir dalam diri kita hati yang takut kepada Allah, hati yang tunduk kepada Allah, dan hati yang sentiasa merasa diawasi oleh Allah Ta‘ala.</p>
