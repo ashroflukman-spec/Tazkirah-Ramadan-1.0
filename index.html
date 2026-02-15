@@ -635,18 +635,41 @@ function copyContent(){
 }
 
 window.onload=()=>renderButtons();
-// === ELEMENTS ===
-const readerModal = document.getElementById("readerModal");
-const modalContent = document.getElementById("modalContent");
+// ================= LOGIC =================
+const gridContainer = document.getElementById("gridContainer");
+const readerModal   = document.getElementById("readerModal");
+const modalContent  = document.getElementById("modalContent");
 const modalTitleDay = document.getElementById("modalTitleDay");
-const toast = document.getElementById("toast");
+const toast         = document.getElementById("toast");
+const searchInput   = document.getElementById("searchInput");
 
-// === OPEN READER ===
-function openReader(day){
+// Render hari
+function renderButtons(filter = "") {
+  gridContainer.innerHTML = "";
+  dbTazkirah
+    .filter(i => i.title.toLowerCase().includes(filter.toLowerCase()))
+    .forEach(item => {
+      const btn = document.createElement("button");
+      btn.className = "day-btn";
+      btn.innerHTML = `
+        <span class="day-label">HARI</span>
+        <span class="day-number">${item.day}</span>
+      `;
+      btn.onclick = () => openReader(item.day);
+      gridContainer.appendChild(btn);
+    });
+}
+
+function filterDays() {
+  renderButtons(searchInput.value);
+}
+
+// Buka tazkirah
+function openReader(day) {
   const data = dbTazkirah.find(i => i.day === day);
 
   modalTitleDay.innerText =
-    `HARI ${data.day < 10 ? '0' + data.day : data.day}`;
+    `HARI ${day < 10 ? "0" + day : day}`;
 
   modalContent.innerHTML = `
     <div class="mb-6 pb-6 border-b border-gray-200">
@@ -656,7 +679,7 @@ function openReader(day){
     </div>
 
     <div class="content-text">
-      ${data.body}
+      ${formatTadabburContent(data.body)}
     </div>
   `;
 
@@ -664,20 +687,20 @@ function openReader(day){
   document.body.style.overflow = "hidden";
 }
 
-// === CLOSE READER (⬅ BACK) ===
-function closeReader(){
+// Tutup (⬅ Back)
+function closeReader() {
   readerModal.classList.add("hidden");
   document.body.style.overflow = "auto";
 }
 
-// === COPY CONTENT ===
-function copyContent(){
+// Copy teks
+function copyContent() {
   navigator.clipboard.writeText(modalContent.innerText);
   toast.style.opacity = "1";
   setTimeout(() => toast.style.opacity = "0", 2000);
 }
 
-// === INIT ===
+// Init
 window.onload = () => renderButtons();
 </script>
 
