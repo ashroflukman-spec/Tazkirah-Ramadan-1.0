@@ -557,7 +557,14 @@ const dbTazkirah = [
 <p>Semoga Allah Ta‘ala menerima amal kita, mengampuni dosa kita, menemukan kita dengan Lailatul Qadar, dan mempertemukan kita dengan Ramadhan yang akan datang dalam keadaan lebih dekat kepada-Nya.</p>
 <p class="text-center font-bold text-[#831843] mt-6">وصلى الله على سيدنا محمد وعلى آله وصحبه وسلم<br>والله أعلم بالصواب</p>`}
 ];
-
+function formatTadabburContent(html) {
+  return html
+    .replace(
+      /\[QUOTE\]([\s\S]*?)\[\/QUOTE\]/g,
+      `<div class="tadabbur-quote">$1</div>`
+    )
+    .replace(/\n\s*\n/g, '<br><br>');
+}
 // ================= LOGIC =================
 const gridContainer=document.getElementById("gridContainer");
 const readerModal=document.getElementById("readerModal");
@@ -584,17 +591,26 @@ function filterDays(){
   renderButtons(searchInput.value);
 }
 
-function openReader(day){
-  const data=dbTazkirah.find(i=>i.day===day);
-  modalTitleDay.innerText=`HARI ${String(day).padStart(2,'0')}`;
-  modalContent.innerHTML=data.body;
-  readerModal.classList.remove("hidden");
-  document.body.style.overflow="hidden";
-}
+function openReader(day) {
+  const data = dbTazkirah.find(i => i.day === day);
 
-function closeReader(){
-  readerModal.classList.add("hidden");
-  document.body.style.overflow="auto";
+  modalTitleDay.innerText =
+    `HARI ${data.day < 10 ? '0' + data.day : data.day}`;
+
+  modalContent.innerHTML = `
+    <div class="mb-6 pb-6 border-b border-gray-100">
+      <h2 class="text-3xl font-black text-gray-900 leading-tight">
+        ${data.title}
+      </h2>
+    </div>
+
+    <div class="content-text">
+      ${formatTadabburContent(data.body)}
+    </div>
+  `;
+
+  readerModal.classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
 }
 
 function copyContent(){
