@@ -580,61 +580,7 @@ function formatTadabburContent(html) {
     )
     .replace(/\n\s*\n/g, '<br><br>');
 }
-// ================= LOGIC =================
-const gridContainer=document.getElementById("gridContainer");
-const readerModal=document.getElementById("readerModal");
-const modalContent=document.getElementById("modalContent");
-const modalTitleDay=document.getElementById("modalTitleDay");
-const toast=document.getElementById("toast");
-const searchInput = document.getElementById("searchInput");
 
-function renderButtons(filter=""){
-  gridContainer.innerHTML="";
-  dbTazkirah
-   .filter(i=>i.title.toLowerCase().includes(filter.toLowerCase()))
-   .forEach(item=>{
-    const btn=document.createElement("button");
-    btn.className="day-btn";
-    btn.innerHTML=`<span class="day-label">HARI</span>
-                   <span class="day-number">${item.day}</span>`;
-    btn.onclick=()=>openReader(item.day);
-    gridContainer.appendChild(btn);
-  });
-}
-
-function filterDays(){
-  renderButtons(searchInput.value);
-}
-
-function openReader(day) {
-  const data = dbTazkirah.find(i => i.day === day);
-
-  modalTitleDay.innerText =
-    `HARI ${data.day < 10 ? '0' + data.day : data.day}`;
-
-  modalContent.innerHTML = `
-    <div class="mb-6 pb-6 border-b border-gray-100">
-      <h2 class="text-3xl font-black text-gray-900 leading-tight">
-        ${data.title}
-      </h2>
-    </div>
-
-    <div class="content-text">
-      ${formatTadabburContent(data.body)}
-    </div>
-  `;
-
-  readerModal.classList.remove('hidden');
-  document.body.style.overflow = 'hidden';
-}
-
-function copyContent(){
-  navigator.clipboard.writeText(modalContent.innerText);
-  toast.style.opacity="1";
-  setTimeout(()=>toast.style.opacity="0",2000);
-}
-
-window.onload=()=>renderButtons();
 // ================= LOGIC =================
 const gridContainer = document.getElementById("gridContainer");
 const readerModal   = document.getElementById("readerModal");
