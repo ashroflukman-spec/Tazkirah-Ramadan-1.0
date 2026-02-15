@@ -701,7 +701,9 @@ function copyContent() {
 }
 
 // Init
-window.onload = () => renderButtons();
+document.addEventListener("DOMContentLoaded", () => {
+  renderButtons();
+});
 </script>
 
 </body>
